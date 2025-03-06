@@ -1,12 +1,26 @@
 import re
 import logging
 
-# Regex pattern to match dates in various common formats
-DATE_PATTERN = r'\b(?:\d{1,4}[-/]\d{1,2}[-/]\d{1,4}|' \
-               r'\d{1,2}\s(?:Jan|January|Feb|February|Mar|March|Apr|April|' \
-               r'May|Jun|June|Jul|July|Aug|August|Sep|September|Oct|October|' \
-               r'Nov|November|Dec|December)\s\d{2,4})\b'
 
+
+# Updated regex pattern to handle ordinal day formats with optional "day" or "day of"
+DATE_PATTERN = (
+    r'\b(?:'
+    r'\d{1,4}[-/]\d{1,2}[-/]\d{1,4}'                            # Matches numeric formats like YYYY-MM-DD
+    r'|'                                                         
+    r'\d{1,2}[/-]\d{1,2}[/-]\d{2,4}'                              # Matches DD/MM/YYYY etc.
+    r'|'                                                         
+    r'\d{4}[/-]\d{1,2}[/-]\d{1,2}'                                # Matches YYYY/MM/DD etc.
+    r'|'                                                         
+    # Matches formats like "1st June 2024", "25th January 2025", "5th day of May 2025"
+    r'(?:\d{1,2}(?:st|nd|rd|th)?'                                  # Day with optional ordinal suffix
+    r'(?:\s+day(?:\s+of)?)?\s+'                                   # Optional "day" or "day of"
+    r'(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|'
+    r'Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|'
+    r'Nov(?:ember)?|Dec(?:ember)?)\s+\d{2,4}'
+    r')'
+    r')\b'
+)
 def extract_date_windows(page_text, pattern=DATE_PATTERN, before=20, after=10):
     """
     For a given page, find all date occurrences and extract a window of characters
