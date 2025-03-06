@@ -1,7 +1,8 @@
 import re
 
 # Regular expression to match various date formats
-date_pattern = r'\b(?:\d{1,4}[-/]\d{1,2}[-/]\d{1,4}|\d{1,2}\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s\d{2,4}|\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\d{4}[/-]\d{1,2}[/-]\d{1,2})\b'
+date_pattern = r'\b(?:\d{1,4}[-/]\d{1,2}[-/]\d{1,4}|\d{1,2}\s(?:Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sep|September|Oct|October|Nov|November|Dec|December)\s\d{2,4}|\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\d{4}[/-]\d{1,2}[/-]\d{1,2})\b'
+
 
 # Example list of text containing dates
 texts = [
