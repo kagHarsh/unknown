@@ -6,18 +6,19 @@ import logging
 # Updated regex pattern to handle ordinal day formats with optional "day" or "day of"
 DATE_PATTERN = (
     r'\b(?:'
-    r'\d{1,4}[-/]\d{1,2}[-/]\d{1,4}'                            # Matches numeric formats like YYYY-MM-DD
+    r'\d{1,4}[-/.]\d{1,2}[-/.]\d{1,4}'                            # Matches numeric formats like YYYY-MM-DD, DD.MM.YYYY, etc.
     r'|'                                                         
-    r'\d{1,2}[/-]\d{1,2}[/-]\d{2,4}'                              # Matches DD/MM/YYYY etc.
+    r'\d{1,2}[/-]\d{1,2}[/-]\d{2,4}'                              # Matches DD/MM/YYYY, MM/DD/YYYY, etc.
     r'|'                                                         
-    r'\d{4}[/-]\d{1,2}[/-]\d{1,2}'                                # Matches YYYY/MM/DD etc.
+    r'\d{4}[/-]\d{1,2}[/-]\d{1,2}'                                # Matches YYYY/MM/DD, etc.
     r'|'                                                         
     # Matches formats like "1st June 2024", "25th January 2025", "5th day of May 2025"
     r'(?:\d{1,2}(?:st|nd|rd|th)?'                                  # Day with optional ordinal suffix
     r'(?:\s+day(?:\s+of)?)?\s+'                                   # Optional "day" or "day of"
     r'(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|'
     r'Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|'
-    r'Nov(?:ember)?|Dec(?:ember)?)\s+\d{2,4}'
+    r'Nov(?:ember)?|Dec(?:ember)?)'
+    r'(?:,\s*\d{4})?'                                             # Optional comma before year
     r')'
     r')\b'
 )
