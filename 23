@@ -1,0 +1,8 @@
+**"Extract the starting or renewal date from the given text "{context}", ensuring that the format includes at least the day and month (dd/mm). Also, identify the year mentioned in the text. If the date is found without a year, use the mentioned year to complete it as (dd/mm/yyyy).
+
+If the text mentions a renewal date, consider the extracted date as (date + 1 day) to get the actual start date.
+Then, calculate the end date as one year minus one day from the start date.
+Return the result in the following JSON format:
+
+{ "start_date": "dd/mm/yyyy", "end_date": "dd/mm/yyyy" }
+"
