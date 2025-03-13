@@ -1,8 +1,12 @@
-**"Extract the starting or renewal date from the given text "{context}", ensuring that the format includes at least the day and month (dd/mm). Also, identify the year mentioned in the text. If the date is found without a year, use the mentioned year to complete it as (dd/mm/yyyy).
+def find_page(docs, keys):
+    # First priority: Search for keys[0]
+    for pg, text in docs.items():
+        if keys[0] in text:
+            return pg
 
-If the text mentions a renewal date, consider the extracted date as (date + 1 day) to get the actual start date.
-Then, calculate the end date as one year minus one day from the start date.
-Return the result in the following JSON format:
+    # Second priority: Search for keys[1] only if keys[0] is not found
+    for pg, text in docs.items():
+        if keys[1] in text:
+            return pg
 
-{ "start_date": "dd/mm/yyyy", "end_date": "dd/mm/yyyy" }
-"
+    return -1  # Return -1 if neither key is found
